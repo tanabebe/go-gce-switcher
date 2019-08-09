@@ -1,4 +1,4 @@
-package go_gce_switcher
+package src
 
 import (
 	"context"
