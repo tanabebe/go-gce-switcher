@@ -20,7 +20,7 @@ type PayLoad struct {
 	Zone   string `json:"zone"`
 }
 
-func InstanceSwitcher(ctx context.Context, m PubSubMessage) error { //, client http.Client) (*http.Client, error) {//, zone string) {
+func InstanceSwitcher(ctx context.Context, m PubSubMessage) error {
 
 	var payLoad PayLoad
 
@@ -38,7 +38,6 @@ func InstanceSwitcher(ctx context.Context, m PubSubMessage) error { //, client h
 
 	log.Printf("[ProjectId:%s][Switch:%s][Target:%s][Zone:%s]", projectId, payLoad.Switch, payLoad.Target, payLoad.Zone)
 
-	// google schedulerから投げられるjsonでinstanceの起動、終了を判断
 	switch payLoad.Switch {
 	case "start":
 		log.Println("instance start")
