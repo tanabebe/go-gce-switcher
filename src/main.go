@@ -10,7 +10,7 @@ import (
 
 var projectId = os.Getenv("GCP_PROJECT")
 
-type PubSubMessage struct {
+type Message struct {
 	Data []byte `json:"data"`
 }
 
@@ -20,11 +20,11 @@ type PayLoad struct {
 	Zone   string `json:"zone"`
 }
 
-func InstanceSwitcher(ctx context.Context, m PubSubMessage) error {
+func InstanceSwitcher(ctx context.Context, msg Message) error {
 
 	var payLoad PayLoad
 
-	err := json.Unmarshal(m.Data, &payLoad)
+	err := json.Unmarshal(msg.Data, &payLoad)
 
 	if err != nil {
 		log.Printf("[ERROR][%T][MSG]: %v", err, err)
@@ -43,7 +43,7 @@ func InstanceSwitcher(ctx context.Context, m PubSubMessage) error {
 		log.Println("instance start")
 		_, err = is.Start(projectId, payLoad.Zone, payLoad.Target).Do()
 	case "stop":
-		log.Printf("instance stop")
+		log.Println("instance stop")
 		_, err = is.Stop(projectId, payLoad.Zone, payLoad.Target).Do()
 	}
 
