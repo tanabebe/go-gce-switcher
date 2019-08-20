@@ -1,4 +1,4 @@
-module go-gce-switcher
+module go-gce-switcher/src
 
 go 1.12
 
